@@ -1,9 +1,11 @@
-#!/bin/bash  -xue
+#!/bin/bash
+
+set -xu
 
 current_srcfile=${BASH_SOURCE:-$0}
 script_dir=$(readlink -f "$(dirname "${current_srcfile}")")
 
-project_name='Sample'
+project_name='Mercurial'
 source  "${script_dir}/config/common-config.rc"
 
 umask  0022
@@ -23,8 +25,8 @@ install_base_dir=${2:-"${install_base_default}"}
 ##    2.  ファイルの確認とダウンロード
 ##
 
-target_prefix=$(readlink -m "${install_base_dir}/Sample-${target_version}")
-if "${target_prefix}/Bin/SampleApplication" --version ; then
+target_prefix=$(readlink -m "${install_base_dir}/${target_version}")
+if "${target_prefix}/local/bin/hg" --version ; then
     # インストール済みなので何もしない
     echo  "Already installed in ${target_prefix}"   1>&2
     sleep 5
@@ -64,15 +66,12 @@ sample_configure_opts='--with-cppunit=no'
 mkdir -p "${build_base_dir}"
 pushd    "${build_base_dir}"
 
-/usr/bin/rm -rf "Sample-${target_version}"
+/usr/bin/rm -rf "mercurial-${target_version}"
 tar -xzf "${installer_file}"
-cd "Sample-${target_version}"
+cd "mercurial-${target_version}"
 
-./configure     \
-    --prefix="${target_prefix}"     \
-    ${sample_configure_opts}        \
+time  make  PREFIX="${target_prefix}"  install  \
+    | tee "${script_dir}/logs/${target_versoin}.log"  \
     ;
-make
-make install
 
 popd
