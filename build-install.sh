@@ -71,7 +71,7 @@ tar -xzf "${installer_file}"
 cd "mercurial-${target_version}"
 
 time  make  PREFIX="${target_prefix}"  install  \
-    | tee "${script_dir}/logs/${target_versoin}.log"  \
+    | tee "${script_dir}/logs/${target_version}.log"  \
     ;
 
 popd
