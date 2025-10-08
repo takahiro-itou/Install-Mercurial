@@ -18,7 +18,7 @@ jobs :
     steps :
       - name : Requirement
         run  : |
-          pip install -y "wheel" "setuptools>=64"  "setuptools-scm>=8.1.0"
+          pip install "wheel" "setuptools>=64"  "setuptools-scm>=8.1.0"
         shell : bash
 
       - name : Checkout
