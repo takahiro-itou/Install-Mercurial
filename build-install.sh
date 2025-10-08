@@ -63,6 +63,8 @@ build_base_dir="${install_base_dir}/builds"
 
 sample_configure_opts='--with-cppunit=no'
 
+mkdir -p "${script_dir}/logs"
+
 mkdir -p "${build_base_dir}"
 pushd    "${build_base_dir}"
 
