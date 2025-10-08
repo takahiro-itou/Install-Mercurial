@@ -16,15 +16,15 @@ jobs :
         target-version : [ 7.0.1 ]
 
     steps :
-      - name : Requirement
-        run  : |
-          pip install "wheel" "setuptools>=64"  "setuptools-scm>=8.1.0"
-        shell : bash
-
       - name : Checkout
         uses : actions/checkout@v4
         with :
           submodules : recursive
+
+      - name : Requirement
+        run  : |
+          pip install -r "requirements.txt"
+        shell : bash
 
       - name : Run-Install
         run  : |
