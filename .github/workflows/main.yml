@@ -38,7 +38,7 @@ jobs :
         run  : |
           pwd
           ls -alR "${INSTALL_BASE}"
-          "${INSTALL_BASE}/Sample-${VERSION}/Bin/SampleApplication" --version
+          "${INSTALL_BASE}/${VERSION}/local/bin/hg" --version
         env   :
           INSTALL_BASE : ${{ env.INSTALL-BASE }}
           VERSION      : ${{ matrix.target-version }}
