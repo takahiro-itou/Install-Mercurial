@@ -13,13 +13,18 @@ jobs :
       fail-fast : false
 
       matrix :
-        target-version : [ 0.0.0 ]
+        target-version : [ 7.0.1 ]
 
     steps :
       - name : Checkout
         uses : actions/checkout@v4
         with :
           submodules : recursive
+
+      - name : Requirement
+        run  : |
+          pip install -r "requirements.txt"
+        shell : bash
 
       - name : Run-Install
         run  : |
@@ -33,7 +38,7 @@ jobs :
         run  : |
           pwd
           ls -alR "${INSTALL_BASE}"
-          "${INSTALL_BASE}/Sample-${VERSION}/Bin/SampleApplication" --version
+          "${INSTALL_BASE}/${VERSION}/local/bin/hg" --version
         env   :
           INSTALL_BASE : ${{ env.INSTALL-BASE }}
           VERSION      : ${{ matrix.target-version }}
@@ -42,3 +47,4 @@ jobs :
 on :
   push :
     branches : [ "master", "develop" ]
+  workflow_dispatch :
